@@ -1,0 +1,29 @@
+# Common
+*.go.build
+*.pb.go
+*.test
+*.pb.md
+*.md.pb
+*.log
+*.yaml
+*.json
+*.css
+*.js
+*.html
+*.xml
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.doc
+*.docx
+*.pdf
+*.out
+*.cover
+*.memcheck
+*.cache
+.local
+
+# Custom
+*.db
+bin/
