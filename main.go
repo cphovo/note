@@ -5,14 +5,11 @@ package main
 
 import (
 	"github.com/cphovo/note/cmd"
+	"github.com/cphovo/note/constants"
 	"github.com/cphovo/note/db"
 )
 
-const (
-	dsn = "data.db"
-)
-
 func main() {
-	db.InitDB(dsn)
+	db.InitDB(constants.DB_CONNECTION_STRING)
 	cmd.Execute()
 }
