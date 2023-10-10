@@ -38,8 +38,15 @@ func GetFileInfo(filepath string) (*FileInfo, error) {
 	}, nil
 }
 
-// Remove code blocks in MarkDown file content
+// This function takes a string as an argument and returns a string with code blocks removed
 func RemoveCodeBlocks(content string) string {
-	re := regexp.MustCompile("```.*?\n.*?```")
+	// Compile a regular expression to match code blocks, excluding plain text block
+	re := regexp.MustCompile("(?s)```\\w+\\n.*?```")
+	return re.ReplaceAllString(content, "")
+}
+
+// Remove empty lines from a given string
+func RemoveEmptyLines(content string) string {
+	re := regexp.MustCompile(`(?m)^\s*$[\r\n]*|[\r\n]+\s+\z`)
 	return re.ReplaceAllString(content, "")
 }
