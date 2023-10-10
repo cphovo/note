@@ -3,6 +3,7 @@ package utils
 import (
 	"io"
 	"os"
+	"regexp"
 	"time"
 )
 
@@ -35,4 +36,10 @@ func GetFileInfo(filepath string) (*FileInfo, error) {
 		Content:   string(bytes),
 		CreatedAt: fileInfo.ModTime(),
 	}, nil
+}
+
+// Remove code blocks in MarkDown file content
+func RemoveCodeBlocks(content string) string {
+	re := regexp.MustCompile("```.*?\n.*?```")
+	return re.ReplaceAllString(content, "")
 }
