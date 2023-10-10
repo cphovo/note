@@ -24,7 +24,7 @@ type Hitokoto struct {
 	Length     int    `json:"length"`
 }
 
-// GetHitokoto is a function that returns a random Hitokoto object and an error from v1.hitokoto.cn
+// GetHitokoto is a function that returns a random Hitokoto object and an error from url
 func GetHitokoto(url string) (hitokoto Hitokoto, err error) {
 	// Get the response from the URL
 	response, err := http.Get(url)
@@ -47,6 +47,11 @@ func GetHitokoto(url string) (hitokoto Hitokoto, err error) {
 	}
 
 	return hitokoto, nil
+}
+
+// Get a random Hitokoto object from v1.hitokoto.cn
+func GetHitokotoRandom() (hitokoto Hitokoto, err error) {
+	return GetHitokoto(hitokotoUrl)
 }
 
 // Get a random Hitokoto object by params c
