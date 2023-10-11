@@ -1,7 +1,7 @@
 package db
 
 import (
-	"os"
+	"sync"
 
 	"github.com/cphovo/note/model"
 	"gorm.io/driver/sqlite"
@@ -12,44 +12,31 @@ type Database struct {
 	DB *gorm.DB
 }
 
-func InitDB(dsn string) error {
-	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
-	if err != nil {
-		return err
-	}
+var (
+	instance *Database
+	once     sync.Once
+)
 
-	defer func() {
-		d, err := db.DB()
-		if err != nil {
-			panic(err)
-		}
-		d.Close()
-	}()
-
-	for _, model := range model.Models() {
-		err = db.AutoMigrate(model)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+// GetDB is a function that returns a Database instance and an error
+func GetDB(dsn string) (*Database, error) {
+	var err error
+	// Execute the function only once
+	once.Do(func() {
+		instance, err = initDB(dsn)
+	})
+	return instance, err
 }
 
-func InitDBIfNotExist(dsn string) error {
-	if _, err := os.Stat(dsn); os.IsNotExist(err) {
-		file, err := os.Create(dsn)
-		if err != nil {
-			return err
-		}
-		file.Close()
-	}
-	return InitDB(dsn)
-}
-
-func NewDatabase(dsn string) (*Database, error) {
+func initDB(dsn string) (*Database, error) {
 	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
+	}
+	for _, model := range model.Models() {
+		err = db.AutoMigrate(model)
+		if err != nil {
+			return nil, err
+		}
 	}
 	return &Database{DB: db}, nil
 }

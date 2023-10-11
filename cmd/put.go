@@ -39,15 +39,14 @@ This will store 'document.txt' in the archive.`,
 			fileInfos = append(fileInfos, *fi)
 		}
 		fmt.Println(fileInfos)
-		database, err := db.NewDatabase(constants.DB_CONNECTION_STRING)
+		database, err := db.GetDB(constants.DB_CONNECTION_STRING)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		defer database.Close()
 		for _, fileInfo := range fileInfos {
 			names := strings.Split(fileInfo.Name, ".")
-			aritcle := model.Aritcle{
+			aritcle := model.Article{
 				Title:   strings.Join(names[:len(names)-1], "."),
 				Content: fileInfo.Content,
 				FileInfo: model.FileInfo{
