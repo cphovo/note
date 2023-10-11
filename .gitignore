@@ -27,3 +27,4 @@
 # Custom
 *.db
 bin/
+.vscode/
