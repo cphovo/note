@@ -7,12 +7,11 @@ import (
 	"log"
 
 	"github.com/cphovo/note/cmd"
-	"github.com/cphovo/note/constants"
 	"github.com/cphovo/note/db"
 )
 
 func main() {
-	database, err := db.GetDB(constants.DB_CONNECTION_STRING)
+	database, err := db.GetDB()
 	if err != nil {
 		log.Fatalf("Failed to initialize database: %v", err)
 	}

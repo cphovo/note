@@ -1,8 +1,10 @@
 package db
 
 import (
+	"os"
 	"sync"
 
+	"github.com/cphovo/note/constants"
 	"github.com/cphovo/note/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -18,7 +20,14 @@ var (
 )
 
 // GetDB is a function that returns a Database instance and an error
-func GetDB(dsn string) (*Database, error) {
+func GetDB() (*Database, error) {
+	dsn := constants.DB_PATH
+
+	envDsn, ok := os.LookupEnv("DB_PATH")
+	if ok {
+		dsn = envDsn
+	}
+
 	var err error
 	// Execute the function only once
 	once.Do(func() {

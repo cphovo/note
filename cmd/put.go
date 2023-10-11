@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cphovo/note/constants"
 	"github.com/cphovo/note/db"
 	"github.com/cphovo/note/model"
 	"github.com/cphovo/note/utils"
@@ -39,7 +38,7 @@ This will store 'document.txt' in the archive.`,
 			fileInfos = append(fileInfos, *fi)
 		}
 		fmt.Println(fileInfos)
-		database, err := db.GetDB(constants.DB_CONNECTION_STRING)
+		database, err := db.GetDB()
 		if err != nil {
 			fmt.Println(err)
 			return
