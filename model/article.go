@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Aritcle struct {
+type Article struct {
 	gorm.Model
 	Title    string
 	Content  string
@@ -21,7 +21,7 @@ type Tag struct {
 
 type FileInfo struct {
 	gorm.Model
-	AritcleID     uint
+	ArticleID     uint
 	FileName      string
 	FileCreatedAt time.Time
 }

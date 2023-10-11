@@ -2,7 +2,7 @@ package model
 
 func Models() []any {
 	return []any{
-		&Aritcle{},
+		&Article{},
 		&Tag{},
 		&FileInfo{},
 	}
