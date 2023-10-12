@@ -7,11 +7,11 @@ import (
 )
 
 func TestRemoveCodeBlocks(t *testing.T) {
-	fi, err := utils.GetFileInfo("./input.md")
+	fi, err := utils.GetFileInfo("./md/input.md")
 	if err != nil {
 		t.Fail()
 	}
-	expected, err := utils.GetFileInfo("./output1.md")
+	expected, err := utils.GetFileInfo("./md/output1.md")
 	if err != nil {
 		t.Fail()
 	}
@@ -23,11 +23,11 @@ func TestRemoveCodeBlocks(t *testing.T) {
 }
 
 func TestRemoveCodeBlocksAndEmptyLines(t *testing.T) {
-	fi, err := utils.GetFileInfo("./input.md")
+	fi, err := utils.GetFileInfo("./md/input.md")
 	if err != nil {
 		t.Fail()
 	}
-	expected, err := utils.GetFileInfo("./output2.md")
+	expected, err := utils.GetFileInfo("./md/output2.md")
 	if err != nil {
 		t.Fail()
 	}

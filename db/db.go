@@ -4,7 +4,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/cphovo/note/constants"
+	"github.com/cphovo/note/config"
 	"github.com/cphovo/note/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -21,8 +21,9 @@ var (
 
 // GetDB is a function that returns a Database instance and an error
 func GetDB() (*Database, error) {
-	dsn := constants.DB_PATH
+	dsn := config.GlobalConfig().Path
 
+	// this env variable only used to test, will be deleted or redesigned in the future
 	envDsn, ok := os.LookupEnv("DB_PATH")
 	if ok {
 		dsn = envDsn
