@@ -16,6 +16,7 @@ func main() {
 		log.Fatalf("Failed to initialize database: %v", err)
 	}
 	defer database.Close()
+	db.MigrateFileType()
 
 	cmd.Execute()
 }

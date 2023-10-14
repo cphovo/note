@@ -65,3 +65,30 @@ func TestDescriptionToString(t *testing.T) {
 		t.Errorf("Expected:\n%s\n\nGot:\n%s\n", "", d)
 	}
 }
+
+func TestDescriptionToCode(t *testing.T) {
+	desc := Description{Describe: "用于测试的描述", Tag: "example, test", Date: "2023/10/13"}
+	actual := desc.Code()
+	expected := "```\nDESCRIBE: 用于测试的描述\nTAG: example, test\nDATE: 2023/10/13\n```"
+	if actual != expected {
+		t.Errorf("Expected:\n%s\n\nGot:\n%s\n", expected, actual)
+	}
+}
+
+func TestFindFirstCodeBlock(t *testing.T) {
+	fi, err := GetFileInfo("../testdata/md/input2.md")
+	if err != nil {
+		t.Fail()
+	}
+	actual := FindFirstCodeBlock(fi.Content)
+	expected := "```\nDESCRIBE: 用于测试的描述\nTAG: example, test\nDATE: 2023/10/13\n```"
+	if actual != expected {
+		t.Errorf("Expected:\n%s\n\nGot:\n%s\n", expected, actual)
+	}
+
+	d := ParseDescription(expected)
+	e := Description{Describe: "用于测试的描述", Tag: "example, test", Date: "2023/10/13"}
+	if d != e {
+		t.Errorf("Expected:\n%s\n\nGot:\n%s\n", e, d)
+	}
+}

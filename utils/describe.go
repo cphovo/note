@@ -27,6 +27,10 @@ func (d *Description) String() string {
 	return strings.Join(parts, "\n")
 }
 
+func (d *Description) Code() string {
+	return fmt.Sprintf("```\n%s\n```", d)
+}
+
 func ParseDescription(desc string) Description {
 	describe, tag, date := "", "", ""
 
@@ -53,4 +57,13 @@ func ParseDescription(desc string) Description {
 		}
 	}
 	return Description{Describe: describe, Tag: tag, Date: date}
+}
+
+func CheckIfContainsDescription(content string) (Description, bool) {
+	firstCodeBlock := FindFirstCodeBlock(content)
+	desc := ParseDescription(firstCodeBlock)
+	if desc.Describe != "" || desc.Tag != "" || desc.Date != "" {
+		return desc, true
+	}
+	return Description{}, false
 }

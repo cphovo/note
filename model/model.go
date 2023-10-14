@@ -4,6 +4,6 @@ func Models() []any {
 	return []any{
 		&Article{},
 		&Tag{},
-		&FileInfo{},
+		&FileType{},
 	}
 }
