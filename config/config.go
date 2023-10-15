@@ -23,15 +23,7 @@ type Config struct {
 	Path string `json:"path"`
 
 	// the dir path of the default jieba dataset saved
-	JieBa JieBa `json:"jieba"`
-}
-
-type JieBa struct {
-	DictPath      string `json:"dict_path"`
-	HmmPath       string `json:"hmm_path"`
-	UserDictPath  string `json:"user_dict_path"`
-	IdfPath       string `json:"idf_path"`
-	StopWordsPath string `json:"stop_words_path"`
+	JieBa utils.JieBa `json:"jieba"`
 }
 
 var (
@@ -79,7 +71,7 @@ func saveDefaultConfig() (*Config, error) {
 
 	defaultConfig := &Config{
 		Path: filepath.Join(path, DbFileName),
-		JieBa: JieBa{
+		JieBa: utils.JieBa{
 			DictPath:      filepath.Join(path, JieBaDirName, "jieba.dict.utf8"),
 			HmmPath:       filepath.Join(path, JieBaDirName, "hmm_model.utf8"),
 			UserDictPath:  filepath.Join(path, JieBaDirName, "user.dict.utf8"),
