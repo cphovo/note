@@ -5,6 +5,7 @@ go 1.21.1
 require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.7.0
+	github.com/yanyiwu/gojieba v1.3.0
 	gorm.io/driver/sqlite v1.5.3
 	gorm.io/gorm v1.25.4
 )

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -16,13 +17,6 @@ type FileInfo struct {
 	Content   string
 	Ext       string
 	CreatedAt time.Time
-}
-
-type Config struct {
-	// the path of the sqlite db saved.
-	Path string `json:"path"`
-	// the name of the sqlite db
-	Name string `json:"name"`
 }
 
 // Function to get the file info of a given filepath
@@ -69,6 +63,34 @@ func HomeDir() string {
 		panic(err)
 	}
 	return s
+}
+
+// CopyFile copies a file from src to dst.
+func CopyFile(src, dst string) (int64, error) {
+	sourceFileStat, err := os.Stat(src)
+	if err != nil {
+		return 0, err
+	}
+
+	// Check if the source is a regular file
+	if !sourceFileStat.Mode().IsRegular() {
+		return 0, fmt.Errorf("%s is not a regular file", src)
+	}
+
+	source, err := os.Open(src)
+	if err != nil {
+		return 0, err
+	}
+	defer source.Close()
+
+	destination, err := os.Create(dst)
+	if err != nil {
+		return 0, err
+	}
+	defer destination.Close()
+
+	nBytes, err := io.Copy(destination, source)
+	return nBytes, err
 }
 
 // This function takes a string as an argument and returns a string with code blocks removed
